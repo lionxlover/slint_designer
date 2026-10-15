@@ -1,0 +1,14 @@
+{
+  "publish": [
+    "index.html", "app.js", "styles.css", "enhance.js", "enhance.css", "sw.js", "manifest.webmanifest",
+    "assets/logo.svg", "assets/icon.svg", "assets/icon-maskable.svg",
+    "assets/icon-192.png", "assets/icon-512.png", "assets/icon-maskable-512.png", "assets/apple-touch-icon.png",
+    "vendor/mobile-drag-drop/index.min.js", "vendor/mobile-drag-drop/scroll-behaviour.min.js",
+    "vendor/mobile-drag-drop/default.css", "vendor/mobile-drag-drop/LICENSE", "_headers"
+  ],
+  "vendorSha256": {
+    "vendor/mobile-drag-drop/index.min.js": "20636b06d47408dd4a7aae1b322b98baa42aa832a6126a6a141813264166bf7f",
+    "vendor/mobile-drag-drop/scroll-behaviour.min.js": "68cd044e4b8edafa3ed018d9a8fb58d6538177c423fbe254a847d026ce42c101",
+    "vendor/mobile-drag-drop/default.css": "78460a8d3512f692dd035f09657a924a9a44ff5053ba7107cb7fc51ce2986448"
+  }
+}

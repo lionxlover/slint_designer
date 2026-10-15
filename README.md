@@ -56,3 +56,35 @@ static-src/            entry + localStorage API adapter
 scripts/build-static.mjs   build script (bun)
 bun scripts/build-static.mjs
 ```
+
+## Devices & install
+
+Works on desktop, tablet and phone (Chrome, Edge, Firefox, Safari / iOS Safari, Android Chrome).
+
+- **Install as an app:** open the hosted site → browser menu → *Install* / *Add to Home Screen*. Works offline after the first visit (the Live preview tab still needs internet).
+- **Phones & portrait tablets (< 1024 px):** side panels are slide-over drawers (use the *Expand Left Sidebar / Right Inspector* buttons); toolbars scroll sideways; layout respects notches and the on-screen keyboard.
+- **Touch:** long-press (~0.2 s) a palette item or layer to drag it; the canvas captures touch gestures so the page doesn't scroll or zoom while you design.
+- Respects *reduce motion*; larger tap targets on touch screens.
+
+## Security
+
+- Strict Content-Security-Policy (same-origin scripts only, no inline scripts, no `eval`), no-referrer, anti-framing guard. See `SECURITY.md`.
+- No server and no accounts. Projects stay in your browser; only the Live preview tab sends the current `.slint` snippet to slintpad.com.
+- Only third-party code: `vendor/mobile-drag-drop` (MIT), pinned by SHA-256 and verified on every deploy (`node scripts/build.mjs --check`).
+- Netlify / Cloudflare Pages users get extra headers from `_headers` (HSTS, `frame-ancestors`, ...).
+
+## Development
+
+```
+node scripts/build.mjs --check   # verify CSP, vendor hashes, icons, service-worker file list
+node scripts/build.mjs           # verify + assemble _site/ (what the Pages workflow deploys)
+npm i --no-save esbuild && node scripts/optimize.mjs app.js   # re-apply the bundle size optimisation after regenerating app.js
+python3 -m http.server           # local test (service worker needs http://localhost, not file://)
+```
+New files must be added to `scripts/files.json` (and to `SHELL` in `sw.js` if they should work offline).
+
+## Performance
+
+- Scripts are `defer`red from `<head>` (downloads start immediately) and a splash screen shows until the app mounts.
+- `app.js` has dev-only React warnings stripped (~7% smaller gzipped, renders identically). A real production build from the source project would shrink it much further.
+- Offline cache is versioned per deploy; navigation preload and idle-time service-worker registration keep first load fast.

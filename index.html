@@ -1,40 +1,50 @@
 <!doctype html>
 <html lang="en" class="dark">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="color-scheme" content="dark" />
-    <title>Slint Designer — Visual UI Builder for Slint</title>
-    <meta
-      name="description"
-      content="Design Slint user interfaces visually, like Qt Designer or Figma. Drag & drop widgets, edit properties, and export clean .slint markup for Rust, C++ and JS. 100% offline — no server required."
-    />
-    <meta
-      name="keywords"
-      content="Slint, GUI designer, Qt Designer, UI builder, Rust GUI, declarative UI"
-    />
-    <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
-    <link rel="stylesheet" href="styles.css" />
-    <style>
-      /* Font variables normally provided by next/font (Geist). The static
-         build ships no font files — use the platform stack instead. */
-      :root {
-        --font-geist-sans:
-          Geist, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
-          "Helvetica Neue", Arial, sans-serif;
-        --font-geist-mono:
-          "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Consolas,
-          "Liberation Mono", monospace;
-      }
-      /* first-paint shell so the frame never flashes white before app.js runs */
-      html, body { height: 100%; }
-      body { margin: 0; background: #0a0a0a; }
-      #root { height: 100%; }
-    </style>
-  </head>
-  <body class="antialiased bg-background text-foreground">
-    <div id="root"></div>
-    <!-- classic script (IIFE): works from file:// with zero server, no CORS -->
-    <script src="app.js"></script>
-  </body>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content" />
+<!-- Security: GitHub Pages can't send headers, so the policy ships as a meta tag.
+     `file:` entries only matter when opened from disk; they have no effect on https. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' file:; style-src 'self' 'unsafe-inline' file:; img-src 'self' data: blob: https: file:; font-src 'self' data: file:; media-src 'self' data: blob: https:; connect-src 'self'; frame-src https://slintpad.com; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests" />
+<meta name="referrer" content="no-referrer" />
+<meta name="color-scheme" content="dark" />
+<meta name="theme-color" content="#0a0a0a" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="Slint Designer" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<title>Slint Designer — Visual UI Builder for Slint</title>
+<meta name="description" content="Design Slint user interfaces visually, like Qt Designer or Figma. Drag & drop widgets, edit properties, and export clean .slint markup for Rust, C++ and JS. Works offline on desktop, tablet and phone." />
+<meta name="keywords" content="Slint, GUI designer, Qt Designer, UI builder, Rust GUI, declarative UI" />
+<link rel="canonical" href="https://lionxlover.github.io/slint_designer/" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Slint Designer — Visual UI Builder for Slint" />
+<meta property="og:description" content="Drag & drop visual designer that exports clean .slint markup. Runs 100% in your browser." />
+<meta property="og:image" content="https://lionxlover.github.io/slint_designer/assets/icon-512.png" />
+<meta name="twitter:card" content="summary" />
+<link rel="icon" type="image/svg+xml" href="assets/icon.svg" />
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="vendor/mobile-drag-drop/default.css" />
+<link rel="stylesheet" href="enhance.css" />
+<!-- Classic deferred scripts (work from file://, no server). Download starts immediately; they execute in this order after the page is parsed. -->
+<script defer src="vendor/mobile-drag-drop/index.min.js"></script>
+<script defer src="vendor/mobile-drag-drop/scroll-behaviour.min.js"></script>
+<script defer src="enhance.js"></script>
+<script defer src="app.js"></script>
+<style>
+/* Font variables normally provided by next/font (Geist). No font files are shipped —
+   the platform stack is used so every OS gets a native, fast font. */
+:root {
+  --font-geist-sans: Geist, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-geist-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+}
+</style>
+</head>
+<body class="antialiased bg-background text-foreground">
+<div id="root"><div class="boot" role="status" aria-live="polite"><img src="assets/icon.svg" width="56" height="56" alt="" /><p>Loading Slint Designer…</p></div></div>
+<noscript><p style="font:16px system-ui;color:#e5e5e5;padding:2rem">Slint Designer needs JavaScript enabled. It runs entirely in your browser — nothing is sent to a server.</p></noscript>
+</body>
 </html>

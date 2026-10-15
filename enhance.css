@@ -1,0 +1,72 @@
+/* Slint Designer — enhance.css: mobile, tablet, touch, a11y. Loaded after styles.css. */
+
+:root { color-scheme: dark; }
+html { height: 100%; background: #0a0a0a; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+html, body { overscroll-behavior: none; }   /* no pull-to-refresh / swipe-back while designing */
+body { margin: 0; height: 100%; background: #0a0a0a; -webkit-tap-highlight-color: transparent; }
+
+/* Full-height shell that respects notches, home bar and the on-screen keyboard (dvh). */
+#root {
+  box-sizing: border-box;
+  height: 100%;
+  height: 100dvh;
+  padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px)
+           env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
+}
+#root > div { height: 100% !important; }
+
+/* First-paint splash (replaced by React as soon as app.js runs) */
+.boot { display: grid; place-content: center; justify-items: center; gap: 14px; color: #a3a3a3;
+  font: 14px/1.4 var(--font-geist-sans, system-ui, sans-serif); }
+.boot img { animation: boot-pulse 1.6s ease-in-out infinite; }
+.boot p { margin: 0; }
+@keyframes boot-pulse { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
+
+/* Touch behaviour */
+button, [role="button"], [role="tab"], [role="menuitem"], select, input, textarea, label, a { touch-action: manipulation; }
+/* The canvas handles its own pointer gestures: stop the browser panning/zooming the page instead */
+.slint-frame,
+[data-slot="resizable-panel"] .relative.min-h-0.flex-1 > .relative.h-full.w-full.overflow-hidden { touch-action: none; }
+[draggable="true"] { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
+
+/* Fingers need bigger targets than mice */
+@media (pointer: coarse) {
+  [data-slot="button"] { min-height: 36px; min-width: 36px; }
+  [draggable="true"] { min-height: 40px !important; }
+  [data-slot="resizable-handle"]::after { width: 24px !important; }
+  input, textarea, select { font-size: max(16px, 1em); } /* prevents iOS focus-zoom */
+}
+
+/* Phones & portrait tablets: side panels become slide-over drawers, toolbars scroll sideways */
+@media (max-width: 1023.98px) {
+  [data-slot="resizable-panel-group"] { position: relative; }
+  [data-slot="resizable-handle"] { display: none !important; }
+  [data-slot="resizable-panel"]:has(> aside) {
+    position: absolute !important; top: 0; bottom: 0; z-index: 40;
+    flex: none !important; width: min(88vw, 22rem) !important;
+    box-shadow: 0 0 48px rgb(0 0 0 / .65);
+  }
+  [data-slot="resizable-panel"]:has(> aside):first-child { left: 0; }
+  [data-slot="resizable-panel"]:has(> aside):last-child  { right: 0; }
+  [data-slot="resizable-panel"][data-panel-size="0.0"],
+  [data-slot="resizable-panel"][data-panel-size="0"] { display: none !important; }
+
+  #root header, #root header + div {
+    overflow-x: auto; overflow-y: hidden; scrollbar-width: none;
+    -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain;
+  }
+  #root header::-webkit-scrollbar, #root header + div::-webkit-scrollbar { display: none; }
+  #root header > *, #root header + div > * { flex-shrink: 0; }
+  #root header input[data-slot="input"] { min-width: 9rem; }
+}
+
+/* Short landscape phones: reclaim vertical space */
+@media (max-height: 480px) and (orientation: landscape) { #root footer { display: none; } }
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
+[role="separator"]:focus-visible { outline: 2px solid #a78bfa; outline-offset: 1px; }
+@media print { #root { display: none; } body::before { content: "Open Slint Designer in a browser to print or export .slint files."; color: #000; } }
