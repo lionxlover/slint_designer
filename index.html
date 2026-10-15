@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <title>Slint Designer — Visual UI Builder for Slint</title>
+    <meta
+      name="description"
+      content="Design Slint user interfaces visually, like Qt Designer or Figma. Drag & drop widgets, edit properties, and export clean .slint markup for Rust, C++ and JS. 100% offline — no server required."
+    />
+    <meta
+      name="keywords"
+      content="Slint, GUI designer, Qt Designer, UI builder, Rust GUI, declarative UI"
+    />
+    <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* Font variables normally provided by next/font (Geist). The static
+         build ships no font files — use the platform stack instead. */
+      :root {
+        --font-geist-sans:
+          Geist, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif;
+        --font-geist-mono:
+          "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Consolas,
+          "Liberation Mono", monospace;
+      }
+      /* first-paint shell so the frame never flashes white before app.js runs */
+      html, body { height: 100%; }
+      body { margin: 0; background: #0a0a0a; }
+      #root { height: 100%; }
+    </style>
+  </head>
+  <body class="antialiased bg-background text-foreground">
+    <div id="root"></div>
+    <!-- classic script (IIFE): works from file:// with zero server, no CORS -->
+    <script src="app.js"></script>
+  </body>
+</html>
